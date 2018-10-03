@@ -5,23 +5,26 @@ TODO:
 	Create structure for engine wrapper
 */
 
-
 const { settings, env } = require("./config.js");
 const http = require("http");
 const Util = require("./lib/util.js");
+const Cookies = require("cookies");
 
-console.log(Util.randomBetween(0,1));
+const Sessions = {
+	"default":null
+}
 
-function genSessionId(length) {
-	let range = [
-		[[48, 57]],
-		[[97, 122]]
-	]
+function startSession(sessionId = null) {
+	if(!sessionId) {
+		sessionId = genSessionId();
+	}
+}
 
+function genSessionId(length = settings.session.idLength) {
 	let codeGen = new Array();
 	for(let i = 0; i < length; i++) {
 		let tmpRange = Util.randomBetween(0, settings.math.charRanges.length - 1);
-		Util.randomBetween(range[tmpRange][0], range[tmpRange][1]);
+		codeGen.push(Util.randomBetween(settings.math.charRanges[tmpRange][0], settings.math.charRanges[tmpRange][1]));
 	}
 
 	let tmpString = "";
@@ -30,11 +33,18 @@ function genSessionId(length) {
 		tmpString += char;
 	}
 
+	console.log(tmpString);
 	return tmpString;
 }
 
 http.createServer((request, response) => {
 	console.log("Request recieved");
+	let cookies = new Cookies(request, response);
+	let sId = cookies.get("sessionId");
+	if(!sId) {
+		sId = genSessionId();
+		cookies.set(settings.session.cookieName, sId);
+	}
 
 	response.setHeader('Access-Control-Allow-Origin', '*');
 	if(request.method === 'OPTIONS') {
@@ -68,7 +78,7 @@ http.createServer((request, response) => {
 		if (request.method === 'POST') {
 			response.setHeader("Content-Type", "text/plain");
 			response.writeHead(200);
-			response.end(genSessionId());
+			response.end(sId);
 			return;
 		} else {
 			response.setHeader("Content-Type", "text/plain");

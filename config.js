@@ -1,9 +1,13 @@
 const env = process.env.NODE_ENV || "dev";
 
-const globalConfig = {
+const settings = {
 	app: {
 		mode: "http",
 		port: parseInt(process.env.JAE_PORT) || 54198
+	},
+	session: {
+		idLength: parseInt(process.env.JAE_SESSION_IDLENGTH) || 25,
+		cookieName: process.env.JAE_SESSION_COOKIENAME || "sessionId"
 	},
 	math: {
 		charRanges: [
@@ -22,6 +26,6 @@ const config = {
 };
 
 module.exports = {
-	settings: globalConfig,
+	settings,
 	env: config[env]
 };
