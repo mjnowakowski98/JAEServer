@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // feff0061 - feff007a (a-z)
+        // feff0030 - feff0039 (1-9)
+
+        let length = 25;
+        let tmp = new Array();
+        for (let i = 0; i < length; i++) {
+            let range = Math.round(Math.random());
+            let diff;
+            if (range) {
+                diff = (57 + 1) - 48;
+                tmp.push(48 + Math.round(100 * Math.random()) % diff);
+            } else {
+                diff = (122 + 1) - 97;
+                tmp.push(97 + Math.round(100 * Math.random()) % diff);
+            }
+        }
+        console.log(tmp);
+
+        let tmpString = "";
+        for (let i = 0; i < tmp.length; i++) {
+            let tmp2 = String.fromCharCode(tmp[i]);
+            tmpString += tmp2;
+        }
+        console.log(tmpString);
+    </script>
+</body>
+
+</html>

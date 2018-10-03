@@ -1,17 +1,36 @@
+/*
+TODO:
+	Clean up/split this file
+	Create UML Diagrams
+	Create structure for engine wrapper
+*/
+
+
 const { settings, env } = require("./config.js");
-
-const JAE = require("jae-engine");
-console.log(JAE);
 const http = require("http");
+const Util = require("./lib/util.js");
 
-let sessions = new Array();
+console.log(Util.randomBetween(0,1));
 
-function clientCommand(command, data = null) {
-	switch(command) {
-		case "startSession":
-			
-			break;
+function genSessionId(length) {
+	let range = [
+		[[48, 57]],
+		[[97, 122]]
+	]
+
+	let codeGen = new Array();
+	for(let i = 0; i < length; i++) {
+		let tmpRange = Util.randomBetween(0, settings.math.charRanges.length - 1);
+		Util.randomBetween(range[tmpRange][0], range[tmpRange][1]);
 	}
+
+	let tmpString = "";
+	for(let i = 0; i < length; i++) {
+		let char = String.fromCharCode(codeGen[i]);
+		tmpString += char;
+	}
+
+	return tmpString;
 }
 
 http.createServer((request, response) => {
@@ -40,7 +59,6 @@ http.createServer((request, response) => {
 				} catch(err) { reqData = null; }
 				break;
 			case "text/plain":
-				
 				break;
 			default:
 				break;
@@ -50,7 +68,7 @@ http.createServer((request, response) => {
 		if (request.method === 'POST') {
 			response.setHeader("Content-Type", "text/plain");
 			response.writeHead(200);
-			response.end("test");
+			response.end(genSessionId());
 			return;
 		} else {
 			response.setHeader("Content-Type", "text/plain");

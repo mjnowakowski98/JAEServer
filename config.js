@@ -4,6 +4,12 @@ const globalConfig = {
 	app: {
 		mode: "http",
 		port: parseInt(process.env.JAE_PORT) || 54198
+	},
+	math: {
+		charRanges: [
+			[48, 57],
+			[97, 122]
+		]
 	}
 };
 
