@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "canvas-prebuilt": "^2.0.0-alpha.14",
-    "jae-engine": "^0.0.1"
+    "cookies": "^0.7.2",
+    "jae-engine": "file:../JAE.tar"
   }
 }

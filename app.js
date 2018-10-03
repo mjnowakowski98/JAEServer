@@ -1,11 +1,21 @@
 const { settings, env } = require("./config.js");
 
 const JAE = require("jae-engine");
+console.log(JAE);
 const http = require("http");
 
-const server = http.createServer((request, response) => {
+let sessions = new Array();
+
+function clientCommand(command, data = null) {
+	switch(command) {
+		case "startSession":
+			
+			break;
+	}
+}
+
+http.createServer((request, response) => {
 	console.log("Request recieved");
-	let reqData;
 
 	response.setHeader('Access-Control-Allow-Origin', '*');
 	if(request.method === 'OPTIONS') {
@@ -25,14 +35,16 @@ const server = http.createServer((request, response) => {
 		console.log("Data read: " + chunk);
 		switch(request.headers['content-type']) {
 			case "application/json":
+				let reqData;
 				try { reqData = JSON.parse(chunk);
 				} catch(err) { reqData = null; }
-				console.log(reqData);
+				break;
+			case "text/plain":
+				
 				break;
 			default:
 				break;
 		}
-		
 	}).on('end', () => {
 		console.log("Respond");
 		if (request.method === 'POST') {
