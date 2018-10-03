@@ -1,5 +1,5 @@
 {
-  "name": "jae-server",
+  "name": "jae-webwrapper",
   "version": "0.0.1",
   "description": "Javascript Animation Engine Application Server",
   "main": "app.js",
@@ -16,6 +16,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "canvas-prebuilt": "^2.0.0-alpha.14"
+    "canvas-prebuilt": "^2.0.0-alpha.14",
+    "jae-engine": "^0.0.1"
   }
 }
