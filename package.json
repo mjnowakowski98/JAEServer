@@ -15,9 +15,5 @@
     "url": "https://github.com/mjnowakowski98/JAEServer.git"
   },
   "license": "ISC",
-  "dependencies": {
-    "canvas-prebuilt": "^2.0.0-alpha.14",
-    "cookies": "^0.7.2",
-    "jae-engine": "file:../JAE.tar"
-  }
+  "dependencies": {}
 }

@@ -8,17 +8,6 @@ TODO:
 const { settings, env } = require("./config.js");
 const http = require("http");
 const Util = require("./lib/util.js");
-const Cookies = require("cookies");
-
-const Sessions = {
-	"default":null
-}
-
-function startSession(sessionId = null) {
-	if(!sessionId) {
-		sessionId = genSessionId();
-	}
-}
 
 function genSessionId(length = settings.session.idLength) {
 	let codeGen = new Array();
@@ -39,12 +28,6 @@ function genSessionId(length = settings.session.idLength) {
 
 http.createServer((request, response) => {
 	console.log("Request recieved");
-	let cookies = new Cookies(request, response);
-	let sId = cookies.get("sessionId");
-	if(!sId) {
-		sId = genSessionId();
-		cookies.set(settings.session.cookieName, sId);
-	}
 
 	response.setHeader('Access-Control-Allow-Origin', '*');
 	if(request.method === 'OPTIONS') {
